@@ -1,0 +1,7 @@
+.home-container {
+  background-color: #52361c;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}

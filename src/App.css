@@ -1,5 +1,28 @@
+@font-face {
+  font-family: Jolly Lodger;
+  src: url(./fonts/JollyLodger-Regular.ttf);
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: Jolly Lodger;
+}
+
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.App,
+#root,
+body,
+html {
+  background-color: black;
+  height: 100%;
 }
 
 .App-logo {
