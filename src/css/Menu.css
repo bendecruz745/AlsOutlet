@@ -1,0 +1,85 @@
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menu-container {
+  background-color: #876546;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  padding: 10px 20px 0 20px;
+}
+
+.menu-header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-cost-container {
+  background-color: green;
+  max-height: 40px;
+  width: 98px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 5px 10px 5px 10px;
+  transition: all ease-in 0.1s;
+}
+
+.cart-cost-container:hover {
+  cursor: pointer;
+}
+
+.cart-cost-container:active {
+  background-color: rgb(1, 112, 1);
+}
+
+.cart-cost-container-expanded {
+  width: 190px;
+  max-height: 80px;
+}
+
+.cart-cost-header {
+  display: flex;
+}
+
+.cart-icon {
+  width: 40px;
+  height: auto;
+}
+
+.filter-container {
+  background-color: #e5cb7a;
+  border-radius: 30px;
+  max-height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 10px 5px 10px;
+  overflow: hidden;
+  transition: max-height ease-in 0.1s;
+}
+
+.filter-container:hover {
+  cursor: pointer;
+}
+
+.filter-container:active {
+  background-color: #deb94c;
+}
+
+.filter-container-expanded {
+  max-height: 80px;
+}
+
+.filter-container svg {
+  width: 20px;
+  height: auto;
+}
+
+.selected-filter {
+  display: flex;
+}

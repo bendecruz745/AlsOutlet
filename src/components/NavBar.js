@@ -3,9 +3,31 @@ import downArrowImg from "../imgs/downarrow.png";
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+function useCheckOutsideClick(ref, setNavBarExpanded) {
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setNavBarExpanded(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, setNavBarExpanded]);
+}
+
 function NavBar() {
   const navBarRef = useRef(null);
   const [navBarExpanded, setNavBarExpanded] = useState(false);
+
+  useCheckOutsideClick(navBarRef, setNavBarExpanded);
 
   useEffect(() => {
     if (navBarExpanded === false) {
@@ -23,7 +45,9 @@ function NavBar() {
     <div className="navbar-container" ref={navBarRef}>
       <div className="navbar-main-container">
         <div className="navbar-brand-container">
-          <h1>Al's Outlet</h1>
+          <Link to="/" onClick={() => setNavBarExpanded(false)}>
+            <h1>Al's Outlet</h1>
+          </Link>
         </div>
         <div className="navbar-links-container">
           <img

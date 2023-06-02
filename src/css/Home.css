@@ -1,7 +1,48 @@
 .home-container {
-  background-color: #52361c;
+  background-color: #876546;
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-text-container {
+  width: 90%;
+}
+
+p {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0;
+}
+
+@keyframes menuGlow {
+  0% {
+    text-shadow: -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red, 1px 1px 0 red;
+  }
+  50% {
+    text-shadow: -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red, 1px 1px 0 red;
+  }
+  51% {
+    text-shadow: -1px -1px 0 rgba(255, 0, 0, 0), 1px -1px 0 rgba(255, 0, 0, 0),
+      -1px 1px 0 rgba(255, 0, 0, 0), 1px 1px 0 rgba(255, 0, 0, 0);
+  }
+  100% {
+    text-shadow: -1px -1px 0 rgba(255, 0, 0, 0), 1px -1px 0 rgba(255, 0, 0, 0),
+      -1px 1px 0 rgba(255, 0, 0, 0), 1px 1px 0 rgba(255, 0, 0, 0);
+  }
+}
+
+.menu-neon-button {
+  text-align: center;
+  font-size: 5rem;
+  margin: 0;
+  color: #450101;
+  text-shadow: -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red, 1px 1px 0 red;
+  animation-name: menuGlow;
+  animation-iteration-count: infinite;
+  animation-duration: 1.5s;
 }
