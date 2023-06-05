@@ -1,79 +1,50 @@
 import "../css/Menu.css";
-import { ReactComponent as Cart } from "../imgs/cart.svg";
-import { ReactComponent as DownArrow } from "../imgs/down-arrow.svg";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Filter from "./Filter";
+import CartButton from "./CartButton";
+import ItemCard from "./ItemCard";
 
-function useCheckOutsideClick(ref, expanded) {
-  useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        expanded(false);
-      }
-    }
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref, expanded]);
-}
+const url = process.env.REACT_APP_BASE_URL;
+
+// const itemList = await fetch(mainsUrl).then((response) => response.json());
+
+// console.log(itemList);
 
 function Menu() {
-  const filterRef = useRef(null);
-  const cartRef = useRef(null);
-  const [filterExpanded, setFilterExpanded] = useState(false);
-  const [cartExpanded, setCartExpanded] = useState(false);
+  const [itemList, setItemList] = useState([]);
 
   useEffect(() => {
-    if (filterExpanded === false) {
-      filterRef.current.classList.remove("filter-container-expanded");
-    } else {
-      filterRef.current.classList.add("filter-container-expanded");
-    }
-  }, [filterExpanded]);
+    console.log("initial run of menu");
+    const initialFetch = async () => {
+      try {
+        const response = await fetch(url + "/menu/Mains");
+        if (!response.ok) {
+          throw new Error("Error fetching data");
+        }
+        const data = await response.json();
+        setItemList(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
 
-  useEffect(() => {
-    if (cartExpanded === false) {
-      cartRef.current.classList.remove("cart-cost-container-expanded");
-    } else {
-      cartRef.current.classList.add("cart-cost-container-expanded");
-    }
-  }, [cartExpanded]);
+    initialFetch();
+  }, []);
 
-  useCheckOutsideClick(filterRef, setFilterExpanded);
-  useCheckOutsideClick(cartRef, setCartExpanded);
+  console.log("hello");
 
   return (
     <div className="menu-container">
       <div className="menu-header-container">
-        <div
-          className="cart-cost-container"
-          onClick={() => setCartExpanded(!cartExpanded)}
-          ref={cartRef}
-        >
-          <div className="cart-cost-header">
-            <Cart className="cart-icon" />
-            <p>$19.99</p>
-          </div>
-          <div className="cart-cost-info">
-            <p> HALLO</p>
-          </div>
-        </div>
-        <div
-          className="filter-container"
-          onClick={() => setFilterExpanded(!filterExpanded)}
-          ref={filterRef}
-        >
-          <div className="selected-filter">
-            <p>Mains</p>
-            <DownArrow />
-          </div>
-          <p className="filter-dropdown-link">DWAHUODWUH</p>
-        </div>
+        <CartButton />
+        <Filter />
+      </div>
+      <div className="menu-scroller-container">
+        {itemList.length > 0 ? (
+          itemList.map((item, i) => <ItemCard item={item} key={i} />)
+        ) : (
+          <div>Nothing to show</div>
+        )}
       </div>
     </div>
   );
