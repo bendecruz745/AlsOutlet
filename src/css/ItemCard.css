@@ -1,0 +1,57 @@
+.card-picture-container {
+  width: 90%;
+  margin-left: calc(5% - 2.5px);
+  margin-top: calc(5% - 2.5px);
+}
+
+.card-picture-container img {
+  border: 2.5px solid #e5cb7a;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-title-container {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.card-title-container h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #e5cb7a;
+  font-weight: initial;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+.card-title-container h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #e5cb7a;
+  font-weight: initial;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.card-description-container {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.card-description-container p {
+  font-size: 1.15rem;
+  color: rgb(228, 228, 228);
+}
+
+.card-add-button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-family: Jolly Lodger;
+  font-size: 1.3rem;
+  width: 75px;
+  background-color: green;
+  border: none;
+}

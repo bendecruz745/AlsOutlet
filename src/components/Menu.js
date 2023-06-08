@@ -14,7 +14,6 @@ function Menu() {
   const [itemList, setItemList] = useState([]);
 
   useEffect(() => {
-    console.log("initial run of menu");
     const initialFetch = async () => {
       try {
         const response = await fetch(url + "/menu/Mains");
@@ -31,19 +30,23 @@ function Menu() {
     initialFetch();
   }, []);
 
-  console.log("hello");
-
   return (
     <div className="menu-container">
       <div className="menu-header-container">
         <CartButton />
         <Filter />
       </div>
-      <div className="menu-scroller-container">
+      <div
+        className={
+          itemList.length % 2 === 0
+            ? "menu-scroller-container menu-scroller-container-remove-after"
+            : "menu-scroller-container"
+        }
+      >
         {itemList.length > 0 ? (
           itemList.map((item, i) => <ItemCard item={item} key={i} />)
         ) : (
-          <div>Nothing to show</div>
+          <div className="menu-loading">Nothing to show</div>
         )}
       </div>
     </div>
