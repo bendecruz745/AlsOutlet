@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { ReactComponent as Cart } from "../imgs/cart.svg";
+import { useSelector, useDispatch } from "react-redux";
+import { deductItem, removeItem } from "../Slice/cartSlice";
 import useCheckOutsideClick from "../hooks/useCheckOutsideClick";
 
 function CartButton() {
+  const cart = useSelector((state) => state.cart);
   const [cartExpanded, setCartExpanded] = useState(false);
   const cartRef = useRef(null);
 
@@ -12,6 +15,8 @@ function CartButton() {
     } else {
       cartRef.current.classList.add("cart-cost-container-expanded");
     }
+
+    console.log(cart);
   }, [cartExpanded]);
 
   useCheckOutsideClick(cartRef, setCartExpanded);
