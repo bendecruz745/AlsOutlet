@@ -20,7 +20,7 @@
 
 .card-title-container h1 {
   margin: 0;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   color: #e5cb7a;
   font-weight: initial;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
@@ -28,7 +28,7 @@
 }
 .card-title-container h2 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   color: #e5cb7a;
   font-weight: initial;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
