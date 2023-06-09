@@ -1,8 +1,9 @@
 import "../css/Menu.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Filter from "./Filter";
 import CartButton from "./CartButton";
 import ItemCard from "./ItemCard";
+import { TailSpin } from "react-loading-icons";
 
 const url = process.env.REACT_APP_BASE_URL;
 
@@ -30,11 +31,17 @@ function Menu() {
     initialFetch();
   }, []);
 
+  useEffect(() => {
+    console.log("itemList updated");
+    const menuScroller = document.getElementById("menuScroller");
+    menuScroller.scrollTo({ top: 0, behavior: "smooth" });
+  }, [itemList]);
+
   return (
     <div className="menu-container">
       <div className="menu-header-container">
         <CartButton />
-        <Filter />
+        <Filter setItemList={setItemList} />
       </div>
       <div
         className={
@@ -42,11 +49,12 @@ function Menu() {
             ? "menu-scroller-container menu-scroller-container-remove-after"
             : "menu-scroller-container"
         }
+        id="menuScroller"
       >
         {itemList.length > 0 ? (
           itemList.map((item, i) => <ItemCard item={item} key={i} />)
         ) : (
-          <div className="menu-loading">Nothing to show</div>
+          <TailSpin stroke="#e5cb7a" />
         )}
       </div>
     </div>

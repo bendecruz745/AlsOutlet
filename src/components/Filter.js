@@ -2,9 +2,13 @@ import { useState, useRef, useEffect } from "react";
 import { ReactComponent as DownArrow } from "../imgs/down-arrow.svg";
 import useCheckOutsideClick from "../hooks/useCheckOutsideClick";
 
-function Filter() {
+const url = process.env.REACT_APP_BASE_URL;
+
+function Filter({ setItemList }) {
   const [filterExpanded, setFilterExpanded] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState("Mains");
   const filterRef = useRef(null);
+  const filterList = ["Mains", "Sides", "Drinks"];
 
   useEffect(() => {
     if (filterExpanded === false) {
@@ -16,6 +20,21 @@ function Filter() {
 
   useCheckOutsideClick(filterRef, setFilterExpanded);
 
+  const handleFilterChange = async (item) => {
+    setSelectedFilter(item);
+
+    try {
+      const response = await fetch(url + `/menu/${item}`);
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      const data = await response.json();
+      setItemList(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div
       className="filter-container"
@@ -23,10 +42,22 @@ function Filter() {
       ref={filterRef}
     >
       <div className="selected-filter">
-        <p>Mains</p>
+        <p>{selectedFilter}</p>
         <DownArrow />
       </div>
-      <p className="filter-dropdown-link">DWAHUODWUH</p>
+      {filterList.map((item, i) => {
+        if (item !== selectedFilter) {
+          return (
+            <p
+              className="filter-dropdown-link"
+              key={i}
+              onClick={() => handleFilterChange(item)}
+            >
+              {item}
+            </p>
+          );
+        }
+      })}
     </div>
   );
 }

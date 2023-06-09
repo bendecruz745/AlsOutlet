@@ -58,11 +58,12 @@
 .filter-container {
   background-color: #e5cb7a;
   border-radius: 30px;
-  max-height: 40px;
+  max-height: 50px;
+  min-height: 40px;
+  min-width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5px 10px 5px 10px;
   overflow: hidden;
   transition: max-height ease-in 0.1s;
 }
@@ -71,12 +72,12 @@
   cursor: pointer;
 }
 
-.filter-container:active {
+/* .filter-container:active {
   background-color: #deb94c;
-}
+} */
 
 .filter-container-expanded {
-  max-height: 80px;
+  max-height: 140px;
 }
 
 .filter-container svg {
@@ -84,8 +85,34 @@
   height: auto;
 }
 
+.filter-dropdown-link {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.filter-dropdown-link:last-child {
+  padding-bottom: 5px;
+}
+
+.filter-dropdown-link:hover {
+  background-color: #d5ba68;
+}
+.filter-dropdown-link:active {
+  background-color: #deb94c;
+}
+
 .selected-filter {
   display: flex;
+  min-height: 50px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.selected-filter:active {
+  background-color: #deb94c;
 }
 
 .menu-scroller-container {
@@ -104,7 +131,7 @@
 .menu-scroller-container:after {
   content: "";
   height: 320px;
-  width: 190px;
+  width: 175px;
 }
 
 .menu-scroller-container-remove-after:after {
