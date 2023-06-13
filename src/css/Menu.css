@@ -23,7 +23,7 @@
 .cart-cost-container {
   background-color: green;
   max-height: 40px;
-  width: 98px;
+  max-width: 100px;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
@@ -42,8 +42,8 @@
 }
 
 .cart-cost-container-expanded {
-  width: 190px;
-  max-height: 80px;
+  max-width: 200px;
+  max-height: 100px;
 }
 
 .cart-cost-header {

@@ -22,6 +22,7 @@ function Filter({ setItemList }) {
 
   const handleFilterChange = async (item) => {
     setSelectedFilter(item);
+    setItemList([]);
 
     try {
       const response = await fetch(url + `/menu/${item}`);

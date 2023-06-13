@@ -29,10 +29,14 @@ function CartButton() {
     >
       <div className="cart-cost-header">
         <Cart className="cart-icon" />
-        <p>$19.99</p>
+        <p>{cart["total"] === 0 ? "" : `$${cart["total"]}`}</p>
       </div>
       <div className="cart-cost-info">
-        <p> HALLO</p>
+        <p>
+          {Object.keys(cart["items"]).length === 0
+            ? "No items in Cart"
+            : "yo theres items"}
+        </p>
       </div>
     </div>
   );
