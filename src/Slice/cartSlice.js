@@ -23,14 +23,33 @@ export const cartSlice = createSlice({
         };
       }
 
-      const newTotal = calcTotal(state);
-      state.total = newTotal;
-      console.log(state.total);
+      state.total = calcTotal(state);
     },
-    deductItem: (state, item) => {},
-    removeItem: (state, item) => {},
+    removeItem: (state, item) => {
+      const { [item.payload]: removedItem, ...updatedItems } = state.items;
+      state.items = updatedItems;
+      state.total = calcTotal(state);
+    },
+    modifyItemAmount: (state, modifyAmount) => {
+      const item = modifyAmount.payload.item;
+      console.log(parseInt(modifyAmount.payload.amount, 10));
+      state.items = {
+        ...state.items,
+        [item]: {
+          cost: state.items[item]["cost"],
+          amount: parseInt(modifyAmount.payload.amount, 10),
+        },
+      };
+
+      state.total = calcTotal(state);
+    },
   },
 });
+
+// function removeItem(items, itemToRemove) {
+//   const { [itemToRemove]: removedItem, ...rest } = items;
+//   return rest;
+// }
 
 function calcTotal(state) {
   const keys = Object.keys(state.items);
@@ -40,9 +59,15 @@ function calcTotal(state) {
     total = total + state.items[key]["cost"] * state.items[key]["amount"];
   }
   total = Math.ceil(total * 100) / 100;
-  return total.toFixed(2);
+
+  if (total === 0) {
+    return 0;
+  } else {
+    return total.toFixed(2);
+  }
 }
 
-export const { addItem, deductItem, removeItem } = cartSlice.actions;
+export const { addItem, deductItem, removeItem, modifyItemAmount } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

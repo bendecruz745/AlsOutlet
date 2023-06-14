@@ -1,13 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { ReactComponent as Cart } from "../imgs/cart.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { deductItem, removeItem } from "../Slice/cartSlice";
+import { modifyItemAmount, removeItem } from "../Slice/cartSlice";
 import useCheckOutsideClick from "../hooks/useCheckOutsideClick";
 
 function CartButton() {
   const cart = useSelector((state) => state.cart);
   const [cartExpanded, setCartExpanded] = useState(false);
   const cartRef = useRef(null);
+  const amountSelections = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  console.log("cart button updated");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (cartExpanded === false) {
@@ -15,28 +19,65 @@ function CartButton() {
     } else {
       cartRef.current.classList.add("cart-cost-container-expanded");
     }
-
-    console.log(cart);
   }, [cartExpanded]);
 
   useCheckOutsideClick(cartRef, setCartExpanded);
 
+  const handleAmountSelect = (event, item) => {
+    const modifyAmount = { item: item, amount: event.target.value };
+    dispatch(modifyItemAmount(modifyAmount));
+  };
+
   return (
-    <div
-      className="cart-cost-container"
-      onClick={() => setCartExpanded(!cartExpanded)}
-      ref={cartRef}
-    >
-      <div className="cart-cost-header">
+    <div className="cart-cost-container" ref={cartRef}>
+      <div
+        className="cart-cost-header"
+        onClick={() => setCartExpanded(!cartExpanded)}
+      >
         <Cart className="cart-icon" />
         <p>{cart["total"] === 0 ? "" : `$${cart["total"]}`}</p>
       </div>
       <div className="cart-cost-info">
-        <p>
-          {Object.keys(cart["items"]).length === 0
-            ? "No items in Cart"
-            : "yo theres items"}
-        </p>
+        {Object.keys(cart["items"]).length === 0 ? (
+          <p>No items</p>
+        ) : (
+          Object.keys(cart["items"]).map((item, i) => {
+            return (
+              <div className="cart-item-container" key={i}>
+                <div className="cart-amount-container">
+                  <button className="cart-item-remove-button">X</button>
+                  <select
+                    name="amount"
+                    id="amount-select"
+                    onChange={(event) => handleAmountSelect(event, item)}
+                  >
+                    <option>{`${cart["items"][item]["amount"]}x `}</option>
+                    {amountSelections.map((amount, index) => {
+                      if (cart["items"][item]["amount"] !== amount) {
+                        return (
+                          <option value={amount} key={index}>
+                            {amount}x
+                          </option>
+                        );
+                      }
+                    })}
+                  </select>
+                </div>
+                <p>{item}</p>
+                <p>
+                  $
+                  {(
+                    Math.ceil(
+                      cart["items"][item]["cost"] *
+                        cart["items"][item]["amount"] *
+                        100
+                    ) / 100
+                  ).toFixed(2)}
+                </p>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );
