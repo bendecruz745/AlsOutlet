@@ -28,6 +28,10 @@ function CartButton() {
     dispatch(modifyItemAmount(modifyAmount));
   };
 
+  const handleRemoveItem = (item) => {
+    dispatch(removeItem(item));
+  };
+
   return (
     <div className="cart-cost-container" ref={cartRef}>
       <div
@@ -45,7 +49,12 @@ function CartButton() {
             return (
               <div className="cart-item-container" key={i}>
                 <div className="cart-amount-container">
-                  <button className="cart-item-remove-button">X</button>
+                  <button
+                    className="cart-item-remove-button"
+                    onClick={() => handleRemoveItem(item)}
+                  >
+                    X
+                  </button>
                   <select
                     name="amount"
                     id="amount-select"
