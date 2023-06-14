@@ -88,6 +88,7 @@ function CartButton() {
           })
         )}
       </div>
+      <button className="cart-checkout-button">Confirm Order{` ->`}</button>
     </div>
   );
 }
